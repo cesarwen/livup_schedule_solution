@@ -1,0 +1,18 @@
+{% extends "template.html" %}
+{% block conteudo %}
+<form method="POST" action="{{ url_for('fazer_agendamento') }}">
+    <label for = "data_prevista">Data/horario do seu agendamento: </label>
+    <input type="datetime-local" id = "data_prevista" name ="data_prevista">
+
+    <div class = "form-group">
+        <select class="form-control" name="prato">
+            {% for produto in produtos %}
+            <option value = "{{ produto[0] }}">{{ produto[1] }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <p><button class="btn btn-primary" type="submit">Entrar</button></p>
+
+</form>
+{% endblock %}
