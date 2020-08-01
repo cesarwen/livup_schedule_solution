@@ -1,5 +1,5 @@
 import data_base as db
-import hasher as h
+# import hasher as h
 
 def new_client(usuario, name, password, endereco):
     into = 'cliente(usuario, nome, hash, endereco)'
