@@ -1,0 +1,16 @@
+{% extends "template.html" %}
+{% block conteudo %}
+<form method="POST" action="{{ url_for('select_db') }}">
+
+    <div class = "form-group">
+        <select class="form-control" name="db">
+            {% for table in tables %}
+            <option value = "{{ table }}">{{ table }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <p><button class="btn btn-primary" type="submit">Entrar</button></p>
+
+</form>
+{% endblock %}

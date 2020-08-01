@@ -1,8 +1,8 @@
 def user():
-    return("cesarwn")
+    return("global")
 
 def password():
-    return("09M3l59A")
+    return("global_Conection")
 
 def host():
     return("35.247.219.249")

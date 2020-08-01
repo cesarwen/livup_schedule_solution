@@ -43,12 +43,48 @@ def insert_query(into, values):
     cursor = cnx.cursor()
 
     query = ("INSERT INTO {} VALUES ({})".format(into,values))
-    print(query)
 
     cursor.execute(query)
     cnx.commit()
     disconnect(cnx)
     return
+
+
+def show_query():
+       
+    cnx = connect()
+    cursor = cnx.cursor()
+
+    query = ("SHOW TABLES")
+
+    cursor.execute(query)
+
+    cnx.close()    
+
+    output = []
+    for c in cursor:
+        output.append(c[0])
+
+    disconnect(cnx)
+    return(output)
+
+def columns_query(table):
+       
+    cnx = connect()
+    cursor = cnx.cursor()
+
+    query = ("SHOW COLUMNS FROM {}".format(table))
+
+    cursor.execute(query)
+
+    cnx.close()    
+
+    output = []
+    for c in cursor:
+        output.append(c[0])
+
+    disconnect(cnx)
+    return(output)
 
 def connect():
     cnx = mysql.connector.connect(user=cred.user(), password=cred.password(),host=cred.host(),database=cred.db())

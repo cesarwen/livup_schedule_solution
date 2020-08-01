@@ -7,27 +7,16 @@ import comanda
 app = Flask(__name__)
 app.secret_key = secrets.key()
 
-class Jogo:
-    def __init__(self, nome, categoria, console):
-        self.nome = nome
-        self.categoria = categoria
-        self.console = console
-
-class Usuario:
-    def __init__(self, id, nome, senha):
-        self.id = id
-        self.nome = nome
-        self.senha = senha
 
 def atualiza_users():
     usuarios = client.query_clients()
     return(usuarios)
 
-usuarios=(atualiza_users())
 
 @app.route('/')
 def index():
     return render_template('dashboard.html', titulo='Dashboard')
+
 
 @app.route('/signup')
 def signup():
@@ -47,8 +36,6 @@ def novo_cliente():
     
     client.new_client(usuario, nome, senha, endereco)
 
-    usuarios = atualiza_users()
-
     return redirect(url_for('index'))
 
 
@@ -61,13 +48,14 @@ def login():
 @app.route('/autenticar', methods=['POST', ])
 def autenticar():
 
+    usuarios = atualiza_users()
+    user = db.select_query_where('hash, id_cliente, nome','cliente','usuario = "{}"'.format(request.form['usuario']))[0]
     senha = (str(request.form['senha']))
 
-    for usuario in usuarios:
-        if (usuario[1] == request.form['usuario'] and usuario[4] == senha):
-            ok = 1
-            session['usuario_logado'] = usuario[0]
-            flash(usuario[1] + ' logou com sucesso!')
+    if (user != None):
+        if (user[0] == senha):
+            session['usuario_logado'] = user[1]
+            flash(user[2] + ' logou com sucesso!')
             proxima_pagina = request.form['proxima']
             return redirect(proxima_pagina)
 
@@ -81,13 +69,15 @@ def logout():
     flash('Nenhum usuário logado!')
     return redirect(url_for('index'))
 
+
 @app.route('/agendamento')
 def agendamento():
     if 'usuario_logado' not in session or session['usuario_logado'] == None:
 
         return redirect(url_for('login', proxima=url_for('agendamento')))
     produtos = db.select_query('*', 'produto')
-    return render_template('agendamento.html', titulo='Fazer Agendamento', produtos = produtos)
+    return render_template('agendamento.html', titulo = 'Fazer Agendamento', produtos = produtos)
+
 
 @app.route('/fazer_agendamento', methods=['POST', ])
 def fazer_agendamento():
@@ -100,5 +90,26 @@ def fazer_agendamento():
 
     flash('Agendamento realizado com sucesso')
     return redirect(url_for('index'))
+
+
+@app.route('/db_show')
+def db_show():
+    if 'usuario_logado' not in session or session['usuario_logado'] == None:
+
+        return redirect(url_for('login', proxima=url_for('db_show')))
+    tables = db.show_query()
+    return render_template('db_show.html', titulo = 'Ver Banco de Dados', tables = tables)
+
+
+@app.route('/select_db', methods=['POST', ])
+def select_db():
+    session['db'] = request.form['db']
+    return redirect(url_for('view_db'))
+
+@app.route('/view_db')
+def view_db():
+    headers = db.columns_query(session['db'])
+    contents = db.select_query('*', session['db'])
+    return render_template('view_db.html', titulo = session['db'], headers = headers, contents = contents)
 
 app.run(debug=True)

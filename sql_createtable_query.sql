@@ -1,7 +1,8 @@
 CREATE TABLE agendamento(id_agendamento INT UNSIGNED AUTO_INCREMENT PRIMARY KEY, 
     id_pedido INT, 
     horario_agendado DATETIME, 
-    tempo_estimado TIME);
+    tempo_estimado TIME,
+    imediato BOOL);
 
 CREATE TABLE pedido(id_pedido INT UNSIGNED AUTO_INCREMENT PRIMARY KEY, 
     id_produto INT, 
@@ -20,10 +21,10 @@ CREATE TABLE cliente(id_cliente INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(30),
     endereco VARCHAR(100), 
     hash VARCHAR(110),
-    ip_pacote INT);
+    id_pacote INT);
 
 CREATE TABLE desafio(id_desafio INT UNSIGNED AUTO_INCREMENT PRIMARY KEY, 
-    id_cliente INT, dia_completo DATETIME);
+    id_cliente INT, id_produto INT);
 
 CREATE TABLE pontos(id_pontos INT UNSIGNED AUTO_INCREMENT PRIMARY KEY, 
     id_cliente INT, 
@@ -47,5 +48,6 @@ INSERT INTO produto(name, preco) VALUES('Salmao Edamame', 37.90)
 INSERT INTO produto(name, preco) VALUES('Tofu e Quinos', 39.90)
 INSERT INTO produto(name, preco) VALUES('Frango e Parmesao', 24.90)
 INSERT INTO produto(name, preco) VALUES('Frango Avocado', 31.90)
+
 
 INSERT INTO cliente(name, endereco, hash, id_pacote) VALUES('Cesar Wen', 'Rua Verbo Divino 1061', '')
