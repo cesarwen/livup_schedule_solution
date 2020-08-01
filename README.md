@@ -24,6 +24,7 @@ HTML
 mySQL
 
 ### Pacotes (python):
+
 Flask 
 
 datetime
