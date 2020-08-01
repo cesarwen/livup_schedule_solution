@@ -7,6 +7,12 @@ Vale notar que nao se utiliza nenhuma forma de encriptacao de senhas uma vez que
 
 # Instrucoes para uso:
 
+## Funcao main:
+
+livup_prototype.py
+
+## Notas de uso:
+
 Uma vez que o banco de dados utilizado foi o do Google Cloud, para criterios de avaliacao, o banco de dados esta aberto para todos. Uma vez que o banco e pago, ele sera mantido por um curto perio de tempo.
 
 Se o acesso ao banco de dados estiver fechado, e possivel realizar o teste localmente.
