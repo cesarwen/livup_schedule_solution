@@ -18,11 +18,16 @@ Devem ser modificadas as credencias para o acesso do banco de dados encontradas 
 ### Linguagem:
 
 Python
+
 HTML 
+
 mySQL
 
 ### Pacotes (python):
+
 Flask 
+
 datetime
+
 mysql.connector
 
