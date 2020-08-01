@@ -37,3 +37,7 @@ datetime
 
 mysql.connector
 
+request
+
+json
+
