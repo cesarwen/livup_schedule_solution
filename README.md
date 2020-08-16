@@ -15,7 +15,7 @@ livup_prototype.py
 
 #### Edit
 
-Conforme avisado abaixo, tanto os serviços em já núvem foram fechados. 
+Conforme avisado abaixo, todos os serviços em já núvem foram fechados. 
 
 #### Informações (antigo)
 
